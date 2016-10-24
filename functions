@@ -75,6 +75,26 @@ function newsite() {
 	mkdir wp-content
 	cd wp-content
 
+	# Prompt for plugin auto load.
+	# Good for brand new sites, not good if cloning a wp-content directory.
+	read "response?Is this a brand new site or are you cloning a wp-content directory?
+	1) Brand new site (add default plugins/theme)
+	2) Cloning /wp-content/ (don't add anything)
+	"
+	case $response in
+		1 ) setup_new_site;;
+		2 ) setup_cloned_site;;
+	esac
+
+	install_wp
+}
+
+#
+# Handles all the new site setup stuff.
+#
+function setup_new_site() {
+	echo "Brand new site it is!"
+
 	echo "Adding wp-content subfolders"
 	mkdir mu-plugins
 	mkdir plugins
@@ -85,7 +105,19 @@ function newsite() {
 	setup_plugins
 	setup_themes
 	add_gitignore
-	install_wp
+}
+
+#
+# Handles setup for cloned site.
+#
+function setup_cloned_site() {
+	read "repo?Enter the repo you are cloning (git@yourrepo.com:/reponame.git) (Leave blank to not clone anything.)
+	"
+	if [ ! -z "$repo" ] ; then
+		git clone $repo .
+	fi
+
+	cd ..
 }
 
 #
@@ -195,7 +227,7 @@ themes/twentysixteen" > .gitignore
 #
 function install_wp() {
 	project="${PWD##*/}"
-	
+
 	# cd out of wp-content
 	cd ..
 
@@ -205,4 +237,4 @@ function install_wp() {
 
 	echo "Now installing WordPress..."
 	wp core install --url=$project.dev --title=$project --admin_user=admin --admin_password=password --admin_email=c@test.dev
-}	
+}
