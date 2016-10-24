@@ -1,0 +1,208 @@
+#
+# Creates a _misc directory for various project assets in the main project folder.
+# Forked from https://github.com/bradp/dotfiles
+#
+function proj() {
+	project="${PWD##*/}"
+
+	echo "Setting up new project folder / file structure for $project..."
+	echo "Making misc dirs..."
+
+	mkdir -p "_misc/assets"
+	mkdir -p "_misc/backups"
+	mkdir -p "_misc/notes"
+	mkdir -p "_misc/sublime"
+
+	echo "Creating sublime project file..."
+	sproj
+	mv "$project".sublime-project _misc/sublime/"$project".sublime-project
+
+	echo "Done!"
+
+}
+
+#
+# Creates a sublime-project file.
+# Forked from https://github.com/bradp/dotfiles to work with MAMP.
+#
+function sproj() {
+
+  project="${PWD##*/}"
+echo "{
+	\"folders\":
+	[
+		{
+			\"name\": \"mu-plugins\",
+			\"path\": \"/Applications/MAMP/htdocs/$project/wp-content/mu-plugins\"
+		},
+		{
+			\"name\": \"plugins\",
+			\"path\": \"/Applications/MAMP/htdocs/$project/wp-content/plugins\"
+		},
+		{
+			\"name\": \"themes/$project\",
+			\"path\": \"/Applications/MAMP/htdocs/$project/wp-content/themes/$project\"
+		},
+		{
+			\"name\": \".\",
+			\"path\": \"/Applications/MAMP/htdocs/$project/wp-content/\"
+		},
+		{
+			\"name\": \"/\",
+			\"path\": \"../../\"
+		}
+	]
+}" > "$project".sublime-project
+}
+
+#
+# New site creation script. Sets up a new WordPress site in the current directory.
+# Usage:
+#        `$ mkdir project-name && cd project-name`
+#        `$ newsite`
+#
+function newsite() {
+	echo "Downloading WordPress"
+	wget https://wordpress.org/latest.tar.gz
+
+	echo "Extracting files"
+	tar -xf latest.tar.gz && rm latest.tar.gz
+	mv wordpress/* .
+	rmdir wordpress
+
+	echo "Removing wp-content folder"
+	rm -rf wp-content
+	mkdir wp-content
+	cd wp-content
+
+	echo "Adding wp-content subfolders"
+	mkdir mu-plugins
+	mkdir plugins
+	mkdir themes
+	mkdir uploads
+
+	setup_muplugins
+	setup_plugins
+	setup_themes
+	add_gitignore
+	install_wp
+}
+
+#
+# Sets up mu-plugins.
+# Downloads the WDS Required Plugins and is_wds_admin mu-plugins.
+#
+function setup_muplugins() {
+	cd mu-plugins
+	echo "Downloading WDS Required Plugins"
+	wget https://github.com/WebDevStudios/WDS-Required-Plugins/archive/master.zip && unzip master.zip && rm master.zip
+	mv WDS-Required-Plugins-master wds-required-plugins
+
+	echo "Downloading is_wds_admin"
+	wget https://raw.githubusercontent.com/WebDevStudios/is_wds_admin/master/is-wds-admin.php
+
+	# add any other mu-plugins here
+
+	cd ..
+
+	git add .
+	git commit -m "added mu-plugins"
+	git push
+}
+
+#
+# Function to add any plugins that are used on every project.
+# Currently just adding Stream.
+#
+function setup_plugins() {
+	cd plugins
+
+	echo "Downloading Stream into plugins"
+	wget https://downloads.wordpress.org/plugin/stream.zip && unzip stream.zip && rm stream.zip
+
+  # Optional: Add Migrate DB Pro plugins.
+	setup_migratedbpro
+
+	cd ..
+
+	git add .
+	git commit -m "added initial plugins"
+	git push
+}
+
+#
+# Add Migrate DB Pro plugins.
+# This only works if you have Migrate DB Pro plugins in your MAMP htdocs folder in a folder named /migratedbpro.
+# Can omit from setup_plugins() if not using Migrate DB Pro.
+#
+funciton setup_migratedbpro() {
+        echo "Moving MigrateDB Pro files into plugins"
+        mkdir wp-migrate-db-pro
+        cp -R /Applications/MAMP/htdocs/migratedbpro/wp-migrate-db-pro/* wp-migrate-db-pro
+        mkdir wp-migrate-db-pro-cli
+        cp -R /Applications/MAMP/htdocs/migratedbpro/wp-migrate-db-pro-cli/* wp-migrate-db-pro-cli
+        mkdir wp-migrate-db-pro-media-files
+        cp -R /Applications/MAMP/htdocs/migratedbpro/wp-migrate-db-pro-media-files/* wp-migrate-db-pro-media-files
+}
+
+#
+# Just creates the /themes directory.
+# TODO: autogenerate wd_s theme.
+#
+function setup_themes() {
+	cd themes
+	# other stuff should be done by fed lead
+
+	cd ..
+}
+
+#
+# Adds a .gitignore file in the wp-content directory.
+#
+function add_gitignore() {
+	echo "uploads/
+blogs.dir/
+upgrade/
+backup-db/
+cache/
+backups/
+node_modules/
+.idea/
+# don't ignore the W3 Total Cache /Cache directory!
+!plugins/w3-total-cache/lib/W3/Cache
+# don't ignore the ThreeWP cache directory either
+!plugins/threewp-broadcast/src/cache
+.htaccess
+.sass-cache
+compass_app_log.txt
+advanced-cache.php
+wp-cache-config.php
+sitemap.xml
+sitemap.xml.gz
+*.log
+.DS_Store
+.AppleDouble
+.LSOverride
+plugins/wordpress-importer/
+plugins/ajax-thumbnail-rebuild
+libbarchart-udt-core-2.3.0-SNAPSHOT.jnilib
+themes/twentysixteen" > .gitignore
+}
+
+#
+# Installs WordPress via WP-CLI.
+# Requires WP-CLI is installed and working.
+#
+function install_wp() {
+	project="${PWD##*/}"
+	
+	# cd out of wp-content
+	cd ..
+
+	echo "Creating wp-config.php and setting up database..."
+	wp core config --dbname=$project --dbuser=root --dbpass=root
+	wp db create
+
+	echo "Now installing WordPress..."
+	wp core install --url=$project.dev --title=$project --admin_user=admin --admin_password=password --admin_email=c@test.dev
+}	
