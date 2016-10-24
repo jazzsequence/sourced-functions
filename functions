@@ -231,10 +231,31 @@ function install_wp() {
 	# cd out of wp-content
 	cd ..
 
+	wp_manual_install
+}
+
+#
+# Prompt based WordPress CLI install.
+#
+function wp_manual_install() {
+	project="${PWD##*/}"
+
+	read "db?Enter the db name of the site (e.g. $project)
+	"
+
 	echo "Creating wp-config.php and setting up database..."
-	wp core config --dbname=$project --dbuser=root --dbpass=root
+	wp core config --dbname=$db --dbuser=root --dbpass=root
 	wp db create
 
+	read "url?Enter the url of the site (e.g. $project.dev)
+	"
+
+	read "title?Enter the site title (e.g. $project)
+	"
+
+	read "email?Enter the admin email for the site (username will be admin and password will be password)
+	"
+
 	echo "Now installing WordPress..."
-	wp core install --url=$project.dev --title=$project --admin_user=admin --admin_password=password --admin_email=c@test.dev
+	wp core install --url=$url --title=$title --admin_user=admin --admin_password=password --admin_email=$email
 }
