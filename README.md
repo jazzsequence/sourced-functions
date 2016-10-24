@@ -15,3 +15,9 @@ done
 3. Profit!
 
 **Note:** Also make sure you have [ZSH](http://www.zsh.org/) and [Oh My ZSH!](https://github.com/robbyrussell/oh-my-zsh) installed. That's kind of important.
+
+## What's inside?
+
+* Script to create project asset directories and Sublime project files configured for MAMP environment (forked from [Brad Parbs' dotfiles](https://github.com/bradp/dotfiles)).
+* Script to set up a new WordPress installation, built for MAMP + WP-CLI, specifically.
+* Various helper functions associated with new site setup.
