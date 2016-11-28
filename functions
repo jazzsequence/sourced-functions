@@ -277,3 +277,26 @@ PHP
 	echo "Now installing WordPress..."
 	wp core install --url=$url --title=$title --admin_user=admin --admin_password=password --admin_email=$email
 }
+
+#
+# Set up new site with Chasis
+#
+function chasis_setup() {
+        read "proj?Enter the project name
+        "
+
+        read "repo?Enter the git repository URL
+        "
+
+        echo "Now cloning Chassis into $proj..."
+        git clone --recursive https://github.com/Chassis/Chassis $proj
+        cd $proj
+        git checkout 160-php7
+        echo "Cloning the repository..."
+        git clone --recursive $repo content
+        echo "Cloning WPCS..."
+        git clone --recursive https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.$
+        cp content/.bin/chassis/* ./
+        echo "Firing up Vagrant box..."
+        vagrant up
+}
