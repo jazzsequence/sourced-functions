@@ -292,11 +292,19 @@ function chasis_setup() {
         git clone --recursive https://github.com/Chassis/Chassis $proj
         cd $proj
         git checkout 160-php7
+
+        echo "Creating project folders..."
+        proj
+
         echo "Cloning the repository..."
         git clone --recursive $repo content
+
         echo "Cloning WPCS..."
         git clone --recursive https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.$
+
+        echo "Copying Chasis configuration files..."
         cp content/.bin/chassis/* ./
+
         echo "Firing up Vagrant box..."
         vagrant up
 }
