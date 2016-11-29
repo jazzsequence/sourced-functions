@@ -307,4 +307,25 @@ function chasis_setup() {
 
         echo "Firing up Vagrant box..."
         vagrant up
+	
+        echo "SSHing into Vagrant box..."
+        vagrant ssh
+
+        echo "Installing PEAR..."
+        sudo apt-get install php-pear
+
+        echo "Setting up PHPCS..."
+        sudo pear install PHP_CodeSniffer
+        sudo phpcs --config-set installed_paths /vagrant/content/.bin/wpcs
+
+        echo "Doing initial WordPress setup..."
+        wp theme activate mvp
+        wp rewrite structure '/%year%/%monthnum%/%postname%'
+
+        echo "Run unit tests like:
+        $ vagrant ssh
+        $ cd /vagrant/content
+        $ phpunit
+
+        All done!"
 }
