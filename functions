@@ -332,3 +332,67 @@ echo "{
         ]
 }" > "$project".sublime-project
 }
+
+#
+# Set up new site with Chassis
+#
+function chassis_setup() {
+	read "proj?Enter the project name
+	"
+	
+	read "repo?Enter the git repository URL
+	"
+
+	echo "Now cloning Chassis into $proj..."
+	git clone --recursive https://github.com/Chassis/Chassis $proj
+	cd $proj
+	git checkout 160-php7
+
+	echo "Creating project folders..."
+	chassis_proj
+
+	echo "Cloning the repository..."
+	git clone --recursive $repo content
+
+	echo "Cloning WPCS..."
+	git clone --recursive https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git content/.bin/wpcs
+	
+	echo "Copying Chasis configuration files..."
+	cp content/.bin/chassis/* ./
+
+	echo "Installing XDebug..."
+	git clone git@github.com:Chassis/Xdebug.git extensions/xdebug
+
+	echo "Installing debugging plugins..."
+	git clone git@github.com:Chassis/Debugging.git extensions/debugging
+
+	echo "Installing db-backup extension..."
+	git clone https://github.com/Chassis/db-backup extensions/db-backup
+
+	echo "Installing Vagrant hosts updater plugin..."
+	vagrant plugin install vagrant-hostsupdater
+
+	echo "Firing up Vagrant box..."
+	vagrant up
+#
+#	echo "SSHing into Vagrant box..."
+#	vagrant ssh
+#
+#	echo "Installing PEAR..."
+#	sudo apt-get install php-pear
+#
+#	echo "Setting up PHPCS..."
+#	sudo pear install PHP_CodeSniffer
+#	sudo phpcs --config-set installed_paths /vagrant/content/.bin/wpcs
+#
+#	echo "Doing initial WordPress setup..."
+#	wp theme activate mvp
+#	wp rewrite structure '/%year%/%monthnum%/%postname%'
+#
+	echo "Run unit tests like:
+	$ vagrant ssh
+	$ cd /vagrant/content
+	$ phpunit
+	
+	All done!"
+}
