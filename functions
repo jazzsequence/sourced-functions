@@ -277,3 +277,22 @@ PHP
 	echo "Now installing WordPress..."
 	wp core install --url=$url --title=$title --admin_user=admin --admin_password=password --admin_email=$email
 }
+
+function chassis_proj() {
+	project="${PWD##*/}"
+
+        echo "Setting up new project folder / file structure for $project..."
+        echo "Making misc dirs..."
+
+        mkdir -p "_misc/assets"
+        mkdir -p "_misc/backups"
+        mkdir -p "_misc/notes"
+        mkdir -p "_misc/sublime"
+
+        echo "Creating Chassis sublime project file..."
+        hmproj
+        mv "$project".sublime-project _misc/sublime/"$project".sublime-project
+
+        echo "Done!"	
+}
+
