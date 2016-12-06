@@ -296,3 +296,39 @@ function chassis_proj() {
         echo "Done!"	
 }
 
+function hmproj() {
+
+  project="${PWD##*/}"
+echo "{
+        \"folders\":
+        [	
+		{
+			\"name\": \"tests\",
+			\"path\": \"/Users/jazzsequence/hm/ffxblue/content/.tests/tests\"
+		},
+                {
+                        \"name\": \"mu-plugins\",
+                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/mu-plugins\"
+                },
+                {
+                        \"name\": \"plugins\",
+                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/plugins\"
+                },
+                {
+                        \"name\": \"themes/mvp\",
+                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/themes/mvp\"
+                },
+		{
+			\"name\": \"extensions\",
+			\"path\": \"/Users/jazzsequence/hm/ffxblue/extensions\"
+		},
+                {
+                        \"name\": \"content\",
+                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/\"
+                {
+                        \"name\": \"/\",
+                        \"path\": \"/Users/jazzsequence/hm/ffxblue/\"
+                }
+        ]
+}" > "$project".sublime-project
+}
