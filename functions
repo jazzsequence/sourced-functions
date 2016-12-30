@@ -1,9 +1,9 @@
 ###
-# sourced/functions version 0.9
+# sourced/functions version 0.9.1
 ###
 
 function sourcever() {
-	echo "Using sourced/functions version 0.9"
+	echo "Using sourced/functions version 0.9.1"
 }
 
 #
