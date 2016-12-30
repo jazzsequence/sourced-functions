@@ -304,30 +304,31 @@ echo "{
         [	
 		{
 			\"name\": \"tests\",
-			\"path\": \"/Users/jazzsequence/hm/ffxblue/content/.tests/tests\"
+			\"path\": \"/Users/jazzsequence/hm/$project/content/.tests/tests\"
 		},
                 {
                         \"name\": \"mu-plugins\",
-                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/mu-plugins\"
+                        \"path\": \"/Users/jazzsequence/hm/$project/content/mu-plugins\"
                 },
                 {
                         \"name\": \"plugins\",
-                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/plugins\"
+                        \"path\": \"/Users/jazzsequence/hm/$project/content/plugins\"
                 },
                 {
                         \"name\": \"themes/mvp\",
-                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/themes/mvp\"
+                        \"path\": \"/Users/jazzsequence/hm/$project/content/themes/mvp\"
                 },
 		{
 			\"name\": \"extensions\",
-			\"path\": \"/Users/jazzsequence/hm/ffxblue/extensions\"
+			\"path\": \"/Users/jazzsequence/hm/$project/extensions\"
 		},
                 {
                         \"name\": \"content\",
-                        \"path\": \"/Users/jazzsequence/hm/ffxblue/content/\"
+                        \"path\": \"/Users/jazzsequence/hm/$project/content/\"
+		},
                 {
                         \"name\": \"/\",
-                        \"path\": \"/Users/jazzsequence/hm/ffxblue/\"
+                        \"path\": \"/Users/jazzsequence/hm/$project/\"
                 }
         ]
 }" > "$project".sublime-project
