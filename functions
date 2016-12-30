@@ -351,7 +351,7 @@ function chassis_setup() {
 	echo "Creating project folders..."
 	chassis_proj
 
-	if ( '' == $repo ) {
+	if ( '' == $repo )
 		echo "No repository given, setting up barebones content directory...
 		"
 		mkdir content
@@ -360,10 +360,10 @@ function chassis_setup() {
 		mkdir content/mu-plugins
 		echo "Cloning base theme..."
 		git clone git@github.com:humanmade/theme-base.git content/themes/theme-base
-	} else {
+	else 
 		echo "Cloning the repository..."
 		git clone --recursive $repo content
-	}
+	fi
 
 	echo "Cloning WPCS..."
 	git clone --recursive https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git content/.bin/wpcs
