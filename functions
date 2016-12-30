@@ -311,7 +311,7 @@ function hmproj() {
   	read "dir?Enter your working directory (defaults to /Users/$USER/hm/ in which case the value would be \"hm\")
 	"
 
-	if ( $dir = '' )
+	if [ $dir = '' ]; then
 		dir="hm"
 	fi
 
@@ -367,7 +367,7 @@ function chassis_setup() {
 	echo "Creating project folders..."
 	chassis_proj
 
-	if ( $repo = '' )
+	if [ $repo = '' ]; then
 		echo "No repository given, setting up barebones content directory...
 		"
 		mkdir content
