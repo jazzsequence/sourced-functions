@@ -407,3 +407,24 @@ function chassis_setup() {
 	
 	All done!"
 }
+
+##
+# Search and replace
+#
+# Prompts for old/new url and uses WP CLI to perform a search/replace on those urls.
+##
+function sr() {
+	read "old?What's the old URL you want to remove?
+	"
+
+	read "new?What's the new url you want to replace it with?
+	"
+
+	echo "Perfoming search and replace..."
+	if $(wp --url=$old core is-installed --network); then
+    		wp search-replace --url=$old '$old' '$new' --recurse-objects --network --path=`$PWD/wp/` 
+	else
+    		wp search-replace '$old' '$new' --recurse-objects --path=`$PWD/wp/`
+	fi
+	echo "All done!"
+}
