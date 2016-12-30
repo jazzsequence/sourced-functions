@@ -351,7 +351,7 @@ function chassis_setup() {
 	echo "Creating project folders..."
 	chassis_proj
 
-	if ( '' == $repo )
+	if ( $repo = '' )
 		echo "No repository given, setting up barebones content directory...
 		"
 		mkdir content
