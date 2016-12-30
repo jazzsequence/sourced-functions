@@ -374,8 +374,6 @@ function chassis_setup() {
 		mkdir content/plugins
 		mkdir content/themes
 		mkdir content/mu-plugins
-		echo "Cloning base theme..."
-		git clone git@github.com:humanmade/theme-base.git content/themes/theme-base
 	else 
 		echo "Cloning the repository..."
 		git clone --recursive $repo content
