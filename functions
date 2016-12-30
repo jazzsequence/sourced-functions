@@ -298,37 +298,45 @@ function chassis_proj() {
 
 function hmproj() {
 
-  project="${PWD##*/}"
+  	project="${PWD##*/}"
+
+  	read "dir?Enter your working directory (defaults to /Users/$USER/hm/ in which case the value would be \"hm\")
+	"
+
+	if ( $dir = '' )
+		dir="hm"
+	fi
+
 echo "{
         \"folders\":
         [	
 		{
 			\"name\": \"tests\",
-			\"path\": \"/Users/jazzsequence/hm/$project/content/.tests/tests\"
+			\"path\": \"/Users/$USER/$dir/$project/content/.tests/tests\"
 		},
                 {
                         \"name\": \"mu-plugins\",
-                        \"path\": \"/Users/jazzsequence/hm/$project/content/mu-plugins\"
+                        \"path\": \"/Users/$USER/$dir/$project/content/mu-plugins\"
                 },
                 {
                         \"name\": \"plugins\",
-                        \"path\": \"/Users/jazzsequence/hm/$project/content/plugins\"
+                        \"path\": \"/Users/$USER/$dir/$project/content/plugins\"
                 },
                 {
                         \"name\": \"themes/mvp\",
-                        \"path\": \"/Users/jazzsequence/hm/$project/content/themes/mvp\"
+                        \"path\": \"/Users/$USER/$dir/$project/content/themes/mvp\"
                 },
 		{
 			\"name\": \"extensions\",
-			\"path\": \"/Users/jazzsequence/hm/$project/extensions\"
+			\"path\": \"/Users/$USER/$dir/$project/extensions\"
 		},
                 {
                         \"name\": \"content\",
-                        \"path\": \"/Users/jazzsequence/hm/$project/content/\"
+                        \"path\": \"/Users/$USER/$dir/$project/content/\"
 		},
                 {
                         \"name\": \"/\",
-                        \"path\": \"/Users/jazzsequence/hm/$project/\"
+                        \"path\": \"/Users/$USER/$dir/$project/\"
                 }
         ]
 }" > "$project".sublime-project
