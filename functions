@@ -347,7 +347,6 @@ function chassis_setup() {
 	echo "Now cloning Chassis into $proj..."
 	git clone --recursive https://github.com/Chassis/Chassis $proj
 	cd $proj
-	git checkout 160-php7
 
 	echo "Creating project folders..."
 	chassis_proj
