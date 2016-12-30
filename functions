@@ -2,6 +2,24 @@
 # sourced/functions version 0.9.2
 ###
 
+#
+# Defines some global variables for colors.
+# Forked from https://github.com/colorful-tones/newsite/
+#
+normal=$(tput sgr0)
+bold=$(tput bold)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
+cyan=$(tput setaf 6)
+black=$(tput setaf 7)
+autoload colors
+
+#
+# Displays the current version of the main functions file.
+#
 function sourcever() {
 	echo "Using sourced/functions version 0.9.2"
 }
@@ -308,10 +326,10 @@ function hmproj() {
 
   	project="${PWD##*/}"
 
-  	read "dir?Enter your working directory (defaults to /Users/$USER/hm/ in which case the value would be \"hm\")
-	"
+  	echo ${yellow}"Enter your working directory (defaults to /Users/$USER/hm/ in which case the value would be \"hm\")${normal}"
+	read "dir?"
 
-	if [ $dir = '' ]; then
+	if [[ $dir == '' ]]; then
 		dir="hm"
 	fi
 
@@ -354,11 +372,11 @@ echo "{
 # Set up new site with Chassis
 #
 function chassis_setup() {
-	read "proj?Enter the project name
-	"
+	${yellow}"Enter the project name${normal}"
+	read "proj?"
 	
-	read "repo?Enter the git repository URL
-	"
+	echo ${yellow}"Enter the git repository URL${normal}"
+	read "repo?"
 
 	echo "Now cloning Chassis into $proj..."
 	git clone --recursive https://github.com/Chassis/Chassis $proj
@@ -367,15 +385,15 @@ function chassis_setup() {
 	echo "Creating project folders..."
 	chassis_proj
 
-	if [ $repo = '' ]; then
-		echo "No repository given, setting up barebones content directory...
+	if [[ $repo == '' ]]; then
+		echo ${green}"No repository given, setting up barebones content directory...${normal}
 		"
 		mkdir content
 		mkdir content/plugins
 		mkdir content/themes
 		mkdir content/mu-plugins
 	else 
-		echo "Cloning the repository..."
+		echo ${blue}"Cloning the repository..."${normal}
 		git clone --recursive $repo content
 	fi
 
@@ -414,11 +432,17 @@ function chassis_setup() {
 #	wp theme activate mvp
 #	wp rewrite structure '/%year%/%monthnum%/%postname%'
 #
-	echo "Run unit tests like:
+	echo ${yellow}"Run unit tests like:${normal}
 	$ vagrant ssh
 	$ cd /vagrant/content
 	$ phpunit
+
+	echo ${yellow}"Log into your new site at:
+	http://vagrant.local/wp/wp-login.php
+	Username: admin
+	Password: password"${normal}
 	
+	echo "
 	All done!"
 }
 
