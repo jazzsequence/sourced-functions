@@ -436,6 +436,7 @@ function chassis_setup() {
 	$ vagrant ssh
 	$ cd /vagrant/content
 	$ phpunit
+	"
 
 	echo ${yellow}"Log into your new site at:
 	http://vagrant.local/wp/wp-login.php
