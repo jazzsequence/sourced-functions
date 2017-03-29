@@ -1,5 +1,5 @@
 ###
-# sourced/functions version 0.9.2
+# sourced/functions version 0.9.3
 ###
 
 #
@@ -21,7 +21,7 @@ autoload colors
 # Displays the current version of the main functions file.
 #
 function sourcever() {
-	echo "Using sourced/functions version 0.9.2"
+	echo "Using sourced/functions version 0.9.3"
 }
 
 #
