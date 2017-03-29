@@ -40,11 +40,14 @@ $ mkdir project-name && cd project-name
 $ newsite
 ```
 
+## New site setup with Chassis
+The functions file also includes functions required for setting up a new site with Chassis. Required Vagrant to be installed. Simply run `chassis_setup` and the prompts will walk you through the rest.
+
 **Note:** For the new site installation and database setup to work, you must have WP-CLI installed.
 
 ## FAQ
 
-**How come I get a database connection error when I try to set up a new site in MAMP?**  
+**How come I get a database connection error when I try to set up a new site in MAMP?**
 That's because WP-CLI is trying to use the version of PHP installed on your _system_ instead of the one that MAMP is using. The most reliable way to get around this that I have found (and I've tried a bunch of things) is to create a symbolic link to your MAMP `php` binary in `/usr/bin`. Like this:
 
 ```
