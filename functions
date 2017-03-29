@@ -319,7 +319,7 @@ function chassis_proj() {
         hmproj
         mv "$project".sublime-project _misc/sublime/"$project".sublime-project
 
-        echo "Done!"	
+        echo "Done!"
 }
 
 function hmproj() {
@@ -335,7 +335,7 @@ function hmproj() {
 
 echo "{
         \"folders\":
-        [	
+        [
 		{
 			\"name\": \"tests\",
 			\"path\": \"/Users/$USER/$dir/$project/content/.tests/tests\"
@@ -374,7 +374,7 @@ echo "{
 function chassis_setup() {
 	echo ${yellow}"Enter the project name${normal}"
 	read "proj?"
-	
+
 	echo ${yellow}"Enter the git repository URL${normal}"
 	read "repo?"
 
@@ -392,14 +392,14 @@ function chassis_setup() {
 		mkdir content/plugins
 		mkdir content/themes
 		mkdir content/mu-plugins
-	else 
+	else
 		echo ${blue}"Cloning the repository..."${normal}
 		git clone --recursive $repo content
 	fi
 
 	echo "Cloning WPCS..."
 	git clone --recursive https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git content/.bin/wpcs
-	
+
 	echo "Copying Chasis configuration files..."
 	cp content/.bin/chassis/* ./
 
@@ -442,7 +442,7 @@ function chassis_setup() {
 	http://vagrant.local/wp/wp-login.php
 	Username: admin
 	Password: password"${normal}
-	
+
 	echo "
 	All done!"
 }
@@ -461,7 +461,7 @@ function sr() {
 
 	echo "Perfoming search and replace..."
 	if $(wp --url=$old core is-installed --network); then
-    		wp search-replace --url=$old '$old' '$new' --recurse-objects --network --path=`$PWD/wp/` 
+    		wp search-replace --url=$old '$old' '$new' --recurse-objects --network --path=`$PWD/wp/`
 	else
     		wp search-replace '$old' '$new' --recurse-objects --path=`$PWD/wp/`
 	fi
