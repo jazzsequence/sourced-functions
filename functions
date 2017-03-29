@@ -372,7 +372,7 @@ echo "{
 # Set up new site with Chassis
 #
 function chassis_setup() {
-	${yellow}"Enter the project name${normal}"
+	echo ${yellow}"Enter the project name${normal}"
 	read "proj?"
 	
 	echo ${yellow}"Enter the git repository URL${normal}"
