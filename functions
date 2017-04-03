@@ -82,12 +82,14 @@ echo "{
 }
 
 #
-# New site creation script. Sets up a new WordPress site in the current directory.
-# Usage:
-#        `$ mkdir project-name && cd project-name`
-#        `$ newsite`
+# New site creation script for MAMP.
 #
-function newsite() {
+function mamp_setup() {
+	echo ${yellow}"Enter the project name${normal}"
+	read "proj?"
+
+	mkdir $proj && cd $proj
+
 	echo "Downloading WordPress"
 	wget https://wordpress.org/latest.tar.gz
 
