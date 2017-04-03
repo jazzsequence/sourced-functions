@@ -81,6 +81,18 @@ echo "{
 }" > "$project".sublime-project
 }
 
+function newsite() {
+	read"newsite?${blue}Do you want to set up a new site with Chassis or MAMP?${yellow}
+	1) MAMP
+	2) Chassis${normal}
+	"
+
+	case $newsite in
+		1 ) mamp_setup;;
+		2 ) chassis_setup;;
+	esac
+}
+
 #
 # New site creation script for MAMP.
 #
