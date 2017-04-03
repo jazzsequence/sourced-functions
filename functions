@@ -396,6 +396,9 @@ function chassis_setup() {
 	echo ${yellow}"Enter the git repository URL${normal}"
 	read "repo?"
 
+	echo ${yellow}"Is this for a VIP project?${normal}"
+	read "vip?"
+
 	echo "Now cloning Chassis into $proj..."
 	git clone --recursive https://github.com/Chassis/Chassis $proj
 	cd $proj
@@ -413,6 +416,11 @@ function chassis_setup() {
 	else
 		echo ${blue}"Cloning the repository..."${normal}
 		git clone --recursive $repo content
+	fi
+
+	if [[ $vip == 'yes' || $vip == 'y' ]]; then
+		echo "Cloning VIP Config..."
+		git clone https://github.com/stuartshields/vip-config.git content
 	fi
 
 	echo "Cloning WPCS..."
@@ -435,6 +443,16 @@ function chassis_setup() {
 
 	echo "Firing up Vagrant box..."
 	vagrant up
+
+	if [[ $vip == 'yes' || $vip == 'y' ]]; then
+		echo "Cloning Chassis VIP extension..."
+		git clone https://github.com/stuartshields/chassis-vip.git extensions/vip
+	fi
+
+	echo "Cloning Tester extension..."
+	git clone https://github.com/Chassis/Tester.git extensions/tester --recursive
+
+	vagrant provision
 #
 #	echo "SSHing into Vagrant box..."
 #	vagrant ssh
@@ -456,10 +474,17 @@ function chassis_setup() {
 	$ phpunit
 	"
 
-	echo ${yellow}"Log into your new site at:
-	http://vagrant.local/wp/wp-login.php
-	Username: admin
-	Password: password"${normal}
+	if [[ $vip == 'yes' || $vip == 'y' ]]; then
+		echo ${yellow}"Log into your new site at:
+		http://vip.local/wp-login.php
+		Username: admin
+		Password: password"${normal}
+	else
+		echo ${yellow}"Log into your new site at:
+		http://vagrant.local/wp/wp-login.php
+		Username: admin
+		Password: password"${normal}
+	fi
 
 	echo "
 	All done!"
