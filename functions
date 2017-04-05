@@ -1,5 +1,5 @@
 ###
-# sourced/functions version 0.9.4
+# sourced/functions version 0.9.5
 ###
 
 #
@@ -21,7 +21,7 @@ autoload colors
 # Displays the current version of the main functions file.
 #
 function sourcever() {
-	echo "Using sourced/functions version 0.9.4"
+	echo "Using sourced/functions version 0.9.5"
 }
 
 #
@@ -509,4 +509,26 @@ function sr() {
     		wp search-replace '$old' '$new' --recurse-objects --path=`$PWD/wp/`
 	fi
 	echo "All done!"
+}
+
+#
+# Global Protect up
+#
+# Loads Global Protect VPN
+#
+# @link https://www.ameir.net/blog/archives/389-disableenable-globalprotect-on-os-x.html
+#
+function gpup() {
+	launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangps.plist
+}
+
+#
+# Global Protect down
+#
+# Unloads Global Protect VPN
+#
+# @link https://www.ameir.net/blog/archives/389-disableenable-globalprotect-on-os-x.html
+#
+function gpdown() {
+	launchctl remove com.paloaltonetworks.gp.pangps
 }
