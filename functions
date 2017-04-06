@@ -532,3 +532,21 @@ function gpup() {
 function gpdown() {
 	launchctl remove com.paloaltonetworks.gp.pangps
 }
+
+#
+# Kill Global Protect
+#
+# Since GP can't be quit like a normal application, this sends a kill command
+#
+function killgp() {
+	sudo killall -s SIGINT "GlobalProtect"
+}
+
+#
+# Quit Global Protect
+#
+# Unloads the Global Protect VPN plist file and runs the kill function to quit GP in one go.
+#
+function quitgp() {
+	gpdown && killgp
+}
