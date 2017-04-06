@@ -532,3 +532,12 @@ function gpup() {
 function gpdown() {
 	launchctl remove com.paloaltonetworks.gp.pangps
 }
+
+#
+# Open Global Protect VPN
+#
+# Fires gpup and opens the VPN.
+#
+function gp() {
+	gpup && open /Applications/GlobalProtect.app
+}
