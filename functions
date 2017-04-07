@@ -538,6 +538,6 @@ function gpdown() {
 #
 # Fires gpup and opens the VPN.
 #
-function gp() {
+function gpstart() {
 	gpup && open /Applications/GlobalProtect.app
 }
