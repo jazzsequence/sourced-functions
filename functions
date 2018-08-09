@@ -453,7 +453,6 @@ function chassis_setup() {
 	git clone https://github.com/Chassis/Tester.git extensions/tester --recursive
 
 	vagrant provision
-#	sudo phpcs --config-set installed_paths /vagrant/content/.bin/wpcs
 
 	echo "Making sure WP CLI is at the latest version"
 	vagrant ssh -c "cd /vagrant; wp cli update"
@@ -467,6 +466,8 @@ function chassis_setup() {
 	echo "Setting up PHPCS..."
 	vagrant ssh -c "sudo pear install PHP_CodeSniffer"
 
+#	TODO: need to clone wpcs
+#	vagrant ssh -c "phpcs --config-set installed_paths /vagrant/content/.bin/wpcs"
 #
 #	echo "Doing initial WordPress setup..."
 #	wp theme activate mvp
