@@ -471,8 +471,8 @@ function chassis_setup() {
 #
 #	echo "Doing initial WordPress setup..."
 #	wp theme activate mvp
-#	wp rewrite structure '/%year%/%monthnum%/%postname%'
-#
+	wp rewrite structure '/%year%/%monthnum%/%postname%'
+
 	echo ${yellow}"Run unit tests like:${normal}
 	$ vagrant ssh
 	$ cd /vagrant/content
