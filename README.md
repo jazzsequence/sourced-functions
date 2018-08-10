@@ -1,7 +1,7 @@
 # ~/sourced/functions
 Custom functions for oh-my-zsh
 
-####Version 0.9.3
+####Version 0.9.6
 
 ### Usage
 1. In your `~/.zshrc` file, make sure you have the following lines:
@@ -29,8 +29,10 @@ Then create a symbolic link in your `~/sourced` folder:
 ## What's inside?
 
 * Script to create project asset directories and Sublime project files configured for MAMP environment (forked from [Brad Parbs' dotfiles](https://github.com/bradp/dotfiles)).
-* Script to set up a new WordPress installation, built for MAMP + WP-CLI, specifically.
+* Prompt-based script to set up a new WordPress installation, built for MAMP + WP-CLI or Chassis.
 * Various helper functions associated with new site setup.
+* A wp-cli search/replace alias (`sr`) that will prompt to change a site's URLs.
+* Commands for launching/killing the Global Protect VPN client (which cannot be turned off once installed and running within the app itself).
 
 ## New site setup
 The functions file includes a number of functions built for new site setup for MAMP and MAMP Pro. Usage is simple and will prompt for user input:
@@ -41,9 +43,8 @@ $ newsite
 ```
 
 ## New site setup with Chassis
-The functions file also includes functions required for setting up a new site with Chassis. Required Vagrant to be installed. Simply run `chassis_setup` and the prompts will walk you through the rest.
+The functions file also includes functions required for setting up a new site with Chassis. Required Vagrant to be installed. Simply run `newsite` and choose the Chassis option when prompted. The prompts will walk you through the rest.
 
-**Note:** For the new site installation and database setup to work, you must have WP-CLI installed.
 
 ## FAQ
 
