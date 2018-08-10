@@ -1,6 +1,7 @@
 ###
 # sourced/functions version 0.9.6
 ###
+ver="0.9.6"
 
 #
 # Defines some global variables for colors.
@@ -21,7 +22,7 @@ autoload colors
 # Displays the current version of the main functions file.
 #
 function sourcever() {
-	echo "Using sourced/functions version 0.9.5"
+	echo "Using sourced/functions version ${ver}"
 }
 
 #
