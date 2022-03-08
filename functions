@@ -1,7 +1,7 @@
 ###
 # sourced/functions version 0.9.6
 ###
-ver="0.9.6"
+ver="0.10"
 
 #
 # Defines some global variables for colors.
@@ -16,7 +16,6 @@ blue=$(tput setaf 4)
 magenta=$(tput setaf 5)
 cyan=$(tput setaf 6)
 black=$(tput setaf 7)
-autoload colors
 
 #
 # Displays the current version of the main functions file.
@@ -547,3 +546,85 @@ function gpdown() {
 function gpstart() {
 	gpup && open /Applications/GlobalProtect.app
 }
+
+#
+# Get the current PHP version number.
+#
+function get_php_version() {
+	php --version | tail -r | tail -n 1 | cut -d " " -f 2 | cut -c 1,2,3
+}
+
+function unlink_current_php() {
+	phpversion="$(get_php_version)"		
+	echo "${yellow}Unlinking PHP $phpversion..."
+	# If the PHP version was the current latest, unlink php.
+	# Note: This will need to be updated with each new version of PHP. :(
+	if [ $phpversion = 8.1 ]; then
+		brew unlink php
+	# Otherwise, unlink the current version.
+	else
+		brew unlink php@$phpversion
+	fi
+
+	if [ $phpversion = PHP ]; then
+		echo "${red}No current PHP version linked. Using the default MacOS PHP version. :(${normal}"
+	else
+		echo "${green}PHP $phpversion successfully unlinked.${normal}"
+	fi
+}
+
+function colors() {
+n=32
+arg=setaf
+text='Hello World! This is %s %d'
+
+while (( $# > 0 ))
+do
+    case "$1" in
+        256|--256|-256)
+            n=256
+            shift
+            ;;
+
+        16|--16|-16)
+            n=16
+            shift
+            ;;
+
+        --background|-b)
+            arg=setab
+            shift
+            ;;
+
+        --tiny|-t)
+            text='█'
+            shift
+            ;;
+
+        --help|-H)
+            _colors_help
+            ;;
+
+        --*|-*)
+            _colors_help
+            ;;
+    esac
+done
+
+for f in $(seq $n)
+do
+    tput $arg $f
+    printf "$text" $arg $f
+    tput sgr0
+    if (( f % 16 == 0 )) || [[ "$arg" == 'setab' ]] || [[ "$text" != '█' ]]
+    then
+        printf '\n'
+    fi
+done
+}
+
+function _color_help() {
+    printf 'usage: colors [--help|-H] [--16] [--256] [-t|--tiny] [--background|-b]\n'
+    return
+}
+
