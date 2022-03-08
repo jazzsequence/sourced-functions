@@ -1,7 +1,7 @@
 # ~/sourced/functions
 Custom functions for oh-my-zsh
 
-#### Version 0.9.6
+#### Version 0.10
 
 ### Usage
 1. In your `~/.zshrc` file, make sure you have the following lines:
@@ -33,6 +33,8 @@ Then create a symbolic link in your `~/sourced` folder:
 * Various helper functions associated with new site setup.
 * A wp-cli search/replace alias (`sr`) that will prompt to change a site's URLs.
 * Commands for launching/killing the Global Protect VPN client (which cannot be turned off once installed and running within the app itself).
+* A helpful function that gets the currently installed PHP version
+* Colors help
 
 ## New site setup
 The functions file includes a number of functions built for new site setup for MAMP and MAMP Pro. Usage is simple and will prompt for user input:
