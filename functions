@@ -28,3 +28,25 @@ function sourcever() {
 # Get the current PHP version number.
 #
 function get_php_version() {
+	php --version | tail -r | tail -n 1 | cut -d " " -f 2 | cut -c 1,2,3
+}
+
+function unlink_current_php() {
+	phpversion="$(get_php_version)"
+	echo "${yellow}Unlinking PHP $phpversion..."
+	# If the PHP version was the current latest, unlink php.
+	# Note: This will need to be updated with each new version of PHP. :(
+	if [ $phpversion = 8.1 ]; then
+		brew unlink php
+	# Otherwise, unlink the current version.
+	else
+		brew unlink php@$phpversion
+	fi
+
+	if [ $phpversion = PHP ]; then
+		echo "${red}No current PHP version linked. Using the default MacOS PHP version. :(${normal}"
+	else
+		echo "${green}PHP $phpversion successfully unlinked.${normal}"
+	fi
+}
+
