@@ -16,7 +16,6 @@ blue=$(tput setaf 4)
 magenta=$(tput setaf 5)
 cyan=$(tput setaf 6)
 black=$(tput setaf 7)
-autoload colors
 
 #
 # Displays the current version of the main functions file.
