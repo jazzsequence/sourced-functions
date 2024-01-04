@@ -104,4 +104,3 @@ function _color_help() {
     printf 'usage: colors [--help|-H] [--16] [--256] [-t|--tiny] [--background|-b]\n'
     return
 }
-
