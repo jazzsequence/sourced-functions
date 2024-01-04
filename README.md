@@ -1,7 +1,7 @@
 # ~/sourced/functions
 Custom functions for oh-my-zsh
 
-#### Version 0.10
+#### Version 0.11
 
 ### Usage
 1. In your `~/.zshrc` file, make sure you have the following lines:
